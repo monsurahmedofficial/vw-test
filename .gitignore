@@ -1,0 +1,46 @@
+# Dependencies
+node_modules/
+frontend/node_modules/
+backend/node_modules/
+
+# Environment variables (never commit these)
+.env
+.env.local
+.env.*.local
+backend/.env
+frontend/.env
+frontend/.env.local
+
+# Build output
+frontend/dist/
+frontend/build/
+
+# SQLite database (local dev only)
+backend/data/
+*.db
+*.db-shm
+*.db-wal
+
+# Uploaded files (local dev only — use cloud storage in production)
+backend/uploads/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Claude Code internals
+.agents/
+skills-lock.json
+.claude/
