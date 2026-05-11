@@ -1,5 +1,6 @@
 const { pool } = require('../config/db');
 const emailService = require('../services/emailService');
+const { uploadFile } = require('../services/storageService');
 
 const isSQLite = process.env.USE_SQLITE === 'true';
 const NOW = isSQLite ? "datetime('now')" : 'NOW()';
@@ -157,7 +158,7 @@ async function updateTaskStatus(req, res) {
       return res.status(400).json({ message: 'Proof photo required to complete this task' });
     }
 
-    const imagePath = req.file ? `uploads/${req.file.filename}` : null;
+    const imagePath = req.file ? await uploadFile(req.file) : null;
 
     await pool.query('UPDATE tasks SET status = ? WHERE id = ?', [status, id]);
     await pool.query(
@@ -201,7 +202,7 @@ async function addUpdate(req, res) {
       return res.status(403).json({ message: 'Access denied' });
     }
 
-    const imagePath = req.file ? `uploads/${req.file.filename}` : null;
+    const imagePath = req.file ? await uploadFile(req.file) : null;
 
     if (!note && !imagePath) {
       return res.status(400).json({ message: 'Note or image required' });
